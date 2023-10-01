@@ -9,8 +9,12 @@ animals <- animals[[1]]
 animals2 <- html_table(html2)
 animals2 <- animals2[[1]]
 
-new <- bind_rows(animals,animals2)
 
+species_tags <- gsub(" ", "-" , tolower(animals$`Common name`))
+links <- paste("https://www.worldwildlife.org/species/" ,species_tags , sep = "")
+#find a way to scrape all the attributes of each species
+
+new <- bind_rows(animals,animals2)
 
 html3 <- read_html("https://awionline.org/content/list-endangered-species")
 
