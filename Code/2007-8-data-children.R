@@ -67,7 +67,11 @@ child_78 <- data.frame(
   Urban_Children_Treated_Private_Health_Facility = urban_children_treated_private_health_facility
 )
 
+#Cleaning the data
+child_78 <- child_78[,-1]
+child_78 <- child_78[-c(1:19,46),]
 
-
+#keeping last 6 rows, even thought half the columns are NA, as it still gives indicator 
+#of proportion of RIs
 
 

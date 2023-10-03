@@ -56,4 +56,12 @@ air_quality <- data.frame(
   Air_Quality_of_PM10 = air_quality_of_pm10
 )
 
+#Cleaning the data
+#dropping categoryofES because of too many NULL values
+air_quality <- subset(air_quality, select = -4)
+
+vec <- which(air_quality$Air_Quality_of_SO2 == "Null")
+air_quality <- air_quality[-vec,]
+air_quality <- air_quality[-c(1:13),]
+
 
