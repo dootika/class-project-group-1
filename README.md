@@ -15,6 +15,10 @@ Current status:
 Questions:
 
 1) What areas of the country have the lowest air quality, and which areas of the country are worst affected by Respiratory Illnesses.
-2) Is there any correlation between Air quality and respiratory illnesses ? 
-3) What features of air quality contribute more to increased risk of respiratory illnesses.
-4) To what extent does awareness of danger signs help mitigate the risk of death by respiratory illnesses.
+        a)State wise distribution of air quality
+        b)Top 5 most polluted cities
+3) Is there any correlation between Air quality and respiratory illnesses ?
+5) What features of air quality contribute more to increased risk of respiratory illnesses.
+6) Relation between different features
+7) Income level/GDP and AQI relation
+8) To what extent does awareness of danger signs help mitigate the risk of death by respiratory illnesses.
