@@ -68,4 +68,11 @@ plot(comp$SO2_Annual_Average_g_m3 , comp$Total_Children_Acute_Respiratory_Infect
 plot(comp$NO2_Annual_Average_g_m3 , comp$Total_Children_Acute_Respiratory_Infection)
 plot(comp$PM10_Annual_Average_g_m3 , comp$Total_Children_Acute_Respiratory_Infection)
 
+#simpler visualizations
+
+hist(air_qual$SO2_Annual_Average_g_m3)
+hist(air_qual$NO2_Annual_Average_g_m3)
+hist(air_qual$PM10_Annual_Average_g_m3)
+
+
  
