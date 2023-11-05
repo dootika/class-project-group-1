@@ -11,16 +11,13 @@ ui <- fluidPage(
       selectInput("row_start" , "start row :" , ""),
       selectInput("row_end" , "end row :" , ""),
       # Add input fields for barplot
-      selectInput("barplot_x_var", "Select X variable for Barplot:", ""),
-      selectInput("barplot_y_var", "Select Y variable for Barplot:", "")
+      selectInput("plot_type" , "Select plot type" , c("scatterplot" , "barplot" , "histplot"))
       
     ),
     mainPanel(
       tableOutput("data"),
-      actionButton("plot_button", "Generate Scatterplot"),
-      actionButton("barplot_button", "Generate Barplot"),
-      plotOutput("scatterplot"),
-      plotOutput("barplot") 
+      actionButton("plot_button","generate plot"),
+      plotOutput("plot")
     )
   )
 )
@@ -45,32 +42,38 @@ server <- function(input, output) {
   })
   
   # Create scatterplot
-  output$scatterplot <- renderPlot({
+  output$plot <- renderPlot({
     if (!is.null(input$dataset) && input$plot_button > 0) {
+      
       data <- datasets[[input$dataset]]
-      ggplot(data, aes(x = data[, input$x_var], y = data[, input$y_var] )) +
-        geom_point() +
-        labs(title = paste("Scatterplot for", input$dataset)) + 
-        xlab(input$x_var) +
-        ylab(input$y_var)
+      
+      if(input$plot_type == "scatterplot"){
+        ggplot(data, aes(x = data[, input$x_var], y = data[, input$y_var] )) +
+          geom_point() +
+          labs(title = paste("Scatterplot for", input$dataset)) + 
+          xlab(input$x_var) +
+          ylab(input$y_var)
+      }
+      
+      else if(input$plot_type == "barplot"){
+        
+        data <- datasets[[input$dataset]]
+        x_var <- input$barplot_x_var
+        y_var <- input$barplot_y_var
+        
+        # Create the barplot
+        ggplot(data, aes(x = data[, input$x_var], y = data[, input$y_var])) +
+          geom_bar(stat = "identity", fill = "blue") +
+          labs(title = paste("Barplot for", input$dataset)) + 
+          xlab(x_var) +
+          ylab(y_var)
+        
+      }
     }
     
-  # Create barplot
-output$barplot <- renderPlot({
-  if (!is.null(input$dataset) && input$plot_button > 0) {
-    data <- datasets[[input$dataset]]
-    x_var <- input$barplot_x_var
-    y_var <- input$barplot_y_var
-    
-    # Create the barplot
-    ggplot(data, aes(x = .data[[x_var]], y = .data[[y_var]])) +
-      geom_bar(stat = "identity", fill = "blue") +
-      labs(title = paste("Barplot for", input$dataset)) + 
-      xlab(x_var) +
-      ylab(y_var)
-  }
-})
   })
+  
+  # Create barplot
   
   # Update variable choices based on selected dataset
   observe({
@@ -80,14 +83,7 @@ output$barplot <- renderPlot({
       updateSelectInput(session = getDefaultReactiveDomain() , "row_start" , choices = 1:dim(datasets[[input$dataset]])[1])
       updateSelectInput(session = getDefaultReactiveDomain() , "row_end" , choices = 1:dim(datasets[[input$dataset]])[1])
       
-      
-      # Update variable choices for barplot
-      updateSelectInput(session = getDefaultReactiveDomain(), "barplot_x_var", choices = names(datasets[[input$dataset]]))
-      updateSelectInput(session = getDefaultReactiveDomain(), "barplot_y_var", choices = names(datasets[[input$dataset]]))
-    
-      
-      
-      }
+    }
   })
 }
 
