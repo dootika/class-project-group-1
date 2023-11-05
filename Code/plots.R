@@ -17,7 +17,6 @@ air_qualf <- air_qual %>% group_by(State) %>% summarise(SO2_Annual_Average_g_m3 
                                            PM10_Annual_Average_g_m3 = mean(PM10_Annual_Average_g_m3 , na.rm = TRUE))
 
 
-
 #visualizing pollution data
 plot(air_qualf$SO2_Annual_Average_g_m3, air_qualf$NO2_Annual_Average_g_m3 , xlab = "SO2 annual average in g/m^3"
       ,ylab = "NO2 annual average in g/m^2" , main = "statewise NO2 vs SO2")
@@ -57,11 +56,15 @@ plot(child_2012$Total_Children_Acute_Respiratory_Infection , child_2012$Total_Wo
 plot(child_2012$Rural_Children_Acute_Respiratory_Infection , child_2012$Rural_Women_Aware_Danger_Signs_ARI)
 plot(child_2012$Urban_Children_Acute_Respiratory_Infection , child_2012$Urban_Women_Aware_Danger_Signs_ARI)
 
-child_2012$State
+child_2012$wState
 air_qualf$State
 
+#comparisons
+Deaths_2011 <- read.csv("./Data_Respiratory_illnesses/Deaths_2011.csv")
 temp <- as.data.frame(air_qualf)
 comp <- merge (temp , child_2012)
+comp2 <- merge(temp , Deaths_2011)
+
 
 #correlation
 plot(comp$SO2_Annual_Average_g_m3 , comp$Total_Children_Acute_Respiratory_Infection)

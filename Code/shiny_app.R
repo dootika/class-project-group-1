@@ -5,7 +5,7 @@ ui <- fluidPage(
   titlePanel("Air Quality and Respiratory Illnesses"),
   sidebarLayout(
     sidebarPanel(
-      selectInput("dataset", "Select a dataset:", c("air_quality", "child_2912", "child_78" , "statewise_pollution" , "quality_vs_deaths")),
+      selectInput("dataset", "Select a dataset:", c("air_quality", "child_2912", "child_78" , "statewise_pollution" , "quality_vs_deaths","quality_vs_deaths2")),
       selectInput("x_var", "Select X variable:", ""),
       selectInput("y_var", "Select Y variable:", ""),
       selectInput("row_start" , "start row :" , ""),
@@ -30,9 +30,11 @@ server <- function(input, output) {
   child_78 <- read.csv("./Data_Respiratory_illnesses/child_78.csv")
   statewise_pollution <- read.csv("./Data_Air_Quality/statewise_pollution.csv")
   quality_vs_deaths <- read.csv("./Data_Air_Quality/quality_vs_deaths.csv")
+  quality_vs_deaths2 <- read.csv("./Data_Air_Quality/quality_vs_deaths2.csv")
   
   datasets <- list("air_quality" = air_quality, "child_2012" = child_2012, "child_78" = child_78 , 
-                   "statewise_pollution" = statewise_pollution , "quality_vs_deaths" = quality_vs_deaths)
+                   "statewise_pollution" = statewise_pollution , "quality_vs_deaths" = quality_vs_deaths,
+                   "quality_vs_deaths2" = quality_vs_deaths2)
   
   # Show data summary
   output$data <- renderTable({
