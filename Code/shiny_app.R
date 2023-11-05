@@ -10,12 +10,17 @@ ui <- fluidPage(
       selectInput("y_var", "Select Y variable:", ""),
       selectInput("row_start" , "start row :" , ""),
       selectInput("row_end" , "end row :" , ""),
+      # Add input fields for barplot
+      selectInput("barplot_x_var", "Select X variable for Barplot:", ""),
+      selectInput("barplot_y_var", "Select Y variable for Barplot:", "")
       
     ),
     mainPanel(
       tableOutput("data"),
       actionButton("plot_button", "Generate Scatterplot"),
-      plotOutput("scatterplot")
+      actionButton("barplot_button", "Generate Barplot"),
+      plotOutput("scatterplot"),
+      plotOutput("barplot") 
     )
   )
 )
@@ -49,6 +54,22 @@ server <- function(input, output) {
         xlab(input$x_var) +
         ylab(input$y_var)
     }
+    
+  # Create barplot
+output$barplot <- renderPlot({
+  if (!is.null(input$dataset) && input$plot_button > 0) {
+    data <- datasets[[input$dataset]]
+    x_var <- input$barplot_x_var
+    y_var <- input$barplot_y_var
+    
+    # Create the barplot
+    ggplot(data, aes(x = .data[[x_var]], y = .data[[y_var]])) +
+      geom_bar(stat = "identity", fill = "blue") +
+      labs(title = paste("Barplot for", input$dataset)) + 
+      xlab(x_var) +
+      ylab(y_var)
+  }
+})
   })
   
   # Update variable choices based on selected dataset
@@ -59,7 +80,14 @@ server <- function(input, output) {
       updateSelectInput(session = getDefaultReactiveDomain() , "row_start" , choices = 1:dim(datasets[[input$dataset]])[1])
       updateSelectInput(session = getDefaultReactiveDomain() , "row_end" , choices = 1:dim(datasets[[input$dataset]])[1])
       
-    }
+      
+      # Update variable choices for barplot
+      updateSelectInput(session = getDefaultReactiveDomain(), "barplot_x_var", choices = names(datasets[[input$dataset]]))
+      updateSelectInput(session = getDefaultReactiveDomain(), "barplot_y_var", choices = names(datasets[[input$dataset]]))
+    
+      
+      
+      }
   })
 }
 
