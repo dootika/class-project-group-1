@@ -11,8 +11,9 @@ ui <- fluidPage(
       selectInput("row_start" , "start row :" , ""),
       selectInput("row_end" , "end row :" , ""),
       # Add input fields for barplot
-      selectInput("plot_type" , "Select plot type" , c("scatterplot" , "barplot" , "histplot"))
-      
+      selectInput("plot_type" , "Select plot type" , c("scatterplot" , "barplot" , "histplot")),
+      uiOutput("bins_ui")
+    
     ),
     mainPanel(
       tableOutput("data"),
@@ -36,10 +37,19 @@ server <- function(input, output) {
                    "statewise_pollution" = statewise_pollution , "quality_vs_deaths" = quality_vs_deaths,
                    "quality_vs_deaths2" = quality_vs_deaths2)
   
+  
   # Show data summary
   output$data <- renderTable({
     if (!is.null(input$dataset)) {
       datasets[[input$dataset]][input$row_start:input$row_end , c(input$x_var , input$y_var)]
+    }
+  })
+  
+  output$bins_ui <- renderUI({
+    if (input$plot_type == "histplot") {
+      sliderInput("bins", "Number of Bins:", min = 1, max = 50, value = 10)
+    } else {
+      NULL
     }
   })
   
@@ -71,11 +81,22 @@ server <- function(input, output) {
           ylab(y_var)
         
       }
+      
+      else if (input$plot_type == "histplot") {
+        x_var <- input$x_var
+        bins <- input$bins # You can adjust the number of bins as needed
+
+        ggplot(data, aes_string(x = x_var)) +
+          geom_histogram(binwidth = bins, fill = "blue", color = "black") +
+          labs(title = paste("Histogram for", input$dataset)) +
+          xlab(x_var) +
+          ylab("Frequency")
+      }
     }
     
   })
   
-  # Create barplot
+  
   
   # Update variable choices based on selected dataset
   observe({
@@ -90,3 +111,4 @@ server <- function(input, output) {
 }
 
 shinyApp(ui, server)
+
