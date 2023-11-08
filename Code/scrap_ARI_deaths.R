@@ -18,3 +18,4 @@ names(ARI_death)[7] <- "Total Deaths"
 names(ARI_death)[1] <- "State"
 
 write.csv(ARI_death , file = "Deaths_2011.csv")
+

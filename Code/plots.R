@@ -61,10 +61,13 @@ air_qualf$State
 
 #comparisons
 Deaths_2011 <- read.csv("./Data_Respiratory_illnesses/Deaths_2011.csv")
+air
+child_2012 <- child_2012[,-1]
+Deaths_2011 <- Deaths_2011[,-1]
 temp <- as.data.frame(air_qualf)
 comp <- merge (temp , child_2012)
-comp2 <- merge(temp , Deaths_2011)
-
+comp2 <- merge(comp , Deaths_2011)
+write.csv(comp2 , file = "quality_vs_ARI.csv")
 
 #correlation
 plot(comp$SO2_Annual_Average_g_m3 , comp$Total_Children_Acute_Respiratory_Infection)
