@@ -13,5 +13,5 @@ NHFS_data=NHFS_data[NHFS_data[,3]=='Total',]
 NHFS_data1 <- NHFS_data %>% group_by(State) %>% summarise( Households_using_clean_fuel_for_cooking = mean(Households_using_clean_fuel_for_cooking,na.rm = TRUE) ,
                                                         Women_who_are_literate = mean(Women_who_are_literate,na.rm = TRUE), 
                                                                       Men_who_are_literate = mean(Men_who_are_literate,na.rm = TRUE) ,Prevalence_of_ARI_under_5_years=mean(Prevalence_of_ARI_under_5_years,na.rm = TRUE),Tobacco_use_women=mean(Tobacco_use_women,na.rm = TRUE),Tobacco_use_men=mean(Tobacco_use_men,na.rm = TRUE))
-NHFS_data1[c(7,16),1]=c('Chhattisgarh','Jammu and Kashmir')
-write.csv(NHFS_data1,file="../Data/Scrapped/State_wise_ARI_and_factors.csv",append=FALSE)
+NHFS_data1[c(7,16),1]=c('Chattisgarh','Jammu and Kashmir')
+write.csv(NHFS_data1,file="State_wise_ARI_and_factors.csv",append=FALSE)
