@@ -27,7 +27,14 @@ air
 child_2012 <- child_2012[,-1]
 Deaths_2011 <- Deaths_2011[,-1]
 temp <- as.data.frame(air_qualf)
-comp <- merge (temp , child_2012)
-comp2 <- merge(comp , Deaths_2011)
-write.csv(comp2 , file = "quality_vs_ARI.csv")
+
+temp$State[6] = "Dadra and Nagar Haveli"
+temp$State[7] = "Daman and Diu"
+temp$State[13] = "Jammu and Kashmir"
+temp$State[22] = "Odisha"
+temp$State[26] = "Tamil Nadu"
+
+comp <- merge (temp , Deaths_2011)
+# comp2 <- merge(comp , Deaths_2011)
+write.csv(comp , file = "quality_vs_ARI.csv")
 
