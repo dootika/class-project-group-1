@@ -51,5 +51,9 @@ states[19] = "Delhi"
 states[25] = "Manipur"
 
 Deaths_2011 <- merge(ARI_death , state_populations)
+Deaths_2011["Cases/population"] = Deaths_2011$Total.Cases/Deaths_2011$populations
+Deaths_2011["Total Deaths/Cases"] = Deaths_2011$Total.Deaths/Deaths_2011$Total.Cases
+Deaths_2011["Male Deaths/Cases"] = Deaths_2011$Male.Deaths/Deaths_2011$Male.Cases
+Deaths_2011["Female Deaths/Cases"] = Deaths_2011$Female.Deaths/Deaths_2011$Female.Cases
 
 write.csv(Deaths_2011 , "Deaths_2011.csv")
