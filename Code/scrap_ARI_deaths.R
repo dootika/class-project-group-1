@@ -9,12 +9,12 @@ ARI_death <- as.data.frame(ARI_death)
 ARI_death <- ARI_death[-1,]
 ARI_death <- ARI_death[,-8]
 
-names(ARI_death)[2] <- "Male Cases"
-names(ARI_death)[3] <- "Male Deaths"
-names(ARI_death)[4] <- "Female Cases"
-names(ARI_death)[5] <- "Female Deaths"
-names(ARI_death)[6] <- "Total Cases"
-names(ARI_death)[7] <- "Total Deaths"
+names(ARI_death)[2] <- "Male.Cases"
+names(ARI_death)[3] <- "Male.Deaths"
+names(ARI_death)[4] <- "Female.Cases"
+names(ARI_death)[5] <- "Female.Deaths"
+names(ARI_death)[6] <- "Total.Cases"
+names(ARI_death)[7] <- "Total.Deaths"
 names(ARI_death)[1] <- "State"
 
 #combining Jammu Kashmir
@@ -24,6 +24,7 @@ ARI_death[15,] = c("Jammu and Kashmir" , x+y)
 ARI_death <- ARI_death[-16,]
 ARI_death[5,"State"] = "Bihar"
 
+ARI_death[,2:7] <- lapply(ARI_death[,2:7] , as.numeric)
 
 #adding populations
 
