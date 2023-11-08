@@ -1,7 +1,7 @@
 library(shiny)
 library(ggplot2)
 library(shinythemes)
-
+library(shinyjs)
 ui <- fluidPage(
   theme = shinytheme("slate"),
   titlePanel("Air Quality and Respiratory Illnesses"),
@@ -9,13 +9,13 @@ ui <- fluidPage(
     sidebarPanel(
       selectInput("dataset", "Select a dataset:", c("air_quality", "child_2012", "child_78" , "statewise_pollution" , "quality_vs_ARI")),
       selectInput("x_var", "Select X variable:", ""),
-      selectInput("y_var", "Select Y variable:", ""),
+      uiOutput("y_var_ui"),
       selectInput("row_start" , "start row :" , ""),
       selectInput("row_end" , "end row :" , ""),
       # Add input fields for barplot
       selectInput("plot_type" , "Select plot type" , c("scatterplot" , "barplot" , "histplot")),
       uiOutput("bins_ui")
-    
+      
     ),
     mainPanel(
       tableOutput("data"),
@@ -54,6 +54,15 @@ server <- function(input, output) {
     }
   })
   
+  output$y_var_ui <- renderUI({
+    if (input$plot_type != "histplot") {
+      selectInput("y_var", "Select Y Variable:", "")
+    } else {
+      NULL
+    }
+    
+  })
+  
   # Create scatterplot
   output$plot <- renderPlot({
     if (!is.null(input$dataset) && input$plot_button > 0) {
@@ -86,7 +95,7 @@ server <- function(input, output) {
       else if (input$plot_type == "histplot") {
         x_var <- input$x_var
         bins <- input$bins # You can adjust the number of bins as needed
-
+        
         ggplot(data, aes_string(x = x_var)) +
           geom_histogram(bins = bins, fill = "blue", color = "black") +
           labs(title = paste("Histogram for", input$dataset)) +
@@ -107,9 +116,19 @@ server <- function(input, output) {
       updateSelectInput(session = getDefaultReactiveDomain() , "row_start" , choices = 1:dim(datasets[[input$dataset]])[1])
       updateSelectInput(session = getDefaultReactiveDomain() , "row_end" , choices = 1:dim(datasets[[input$dataset]])[1])
       
+      if (input$plot_type == "histplot") {
+        # If the plot type is "histplot," hide the y_var input
+        shinyjs::hide("y_var")
+      } else {
+        # If the plot type is not "histplot," enable the y_var input
+        shinyjs::show("y_var")
+      }
     }
   })
 }
 
 shinyApp(ui, server)
+
+
+
 
