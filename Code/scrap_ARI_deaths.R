@@ -17,5 +17,10 @@ names(ARI_death)[6] <- "Total Cases"
 names(ARI_death)[7] <- "Total Deaths"
 names(ARI_death)[1] <- "State"
 
+#combining Jammu Kashmir
+x <- as.numeric(ARI_death[16,2:7])
+y <- as.numeric(ARI_death[15,2:7])
+ARI_death[15,] = c("Jammu and Kashmir" , x+y)
+ARI_death <- ARI_death[-16,]
 write.csv(ARI_death , file = "Deaths_2011.csv")
 
