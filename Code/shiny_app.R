@@ -1,11 +1,13 @@
 library(shiny)
 library(ggplot2)
+library(shinythemes)
 
 ui <- fluidPage(
+  theme = shinytheme("darkly"),
   titlePanel("Air Quality and Respiratory Illnesses"),
   sidebarLayout(
     sidebarPanel(
-      selectInput("dataset", "Select a dataset:", c("air_quality", "child_2912", "child_78" , "statewise_pollution" , "quality_vs_ARI")),
+      selectInput("dataset", "Select a dataset:", c("air_quality", "child_2012", "child_78" , "statewise_pollution" , "quality_vs_ARI")),
       selectInput("x_var", "Select X variable:", ""),
       selectInput("y_var", "Select Y variable:", ""),
       selectInput("row_start" , "start row :" , ""),
@@ -86,7 +88,7 @@ server <- function(input, output) {
         bins <- input$bins # You can adjust the number of bins as needed
 
         ggplot(data, aes_string(x = x_var)) +
-          geom_histogram(binwidth = bins, fill = "blue", color = "black") +
+          geom_histogram(bins = bins, fill = "blue", color = "black") +
           labs(title = paste("Histogram for", input$dataset)) +
           xlab(x_var) +
           ylab("Frequency")
