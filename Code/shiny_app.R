@@ -3,7 +3,7 @@ library(ggplot2)
 library(shinythemes)
 
 ui <- fluidPage(
-  theme = shinytheme("superhero"),
+  theme = shinytheme("slate"),
   titlePanel("Air Quality and Respiratory Illnesses"),
   sidebarLayout(
     sidebarPanel(
