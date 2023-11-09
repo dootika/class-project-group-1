@@ -50,11 +50,37 @@ ggplot(comp2, aes(x = NO2_Annual_Average_g_m3, y = Prevalence_of_ARI_under_5_yea
   labs(title = paste("Scatterplot for ARI vs NO2")) + 
   xlab("NO2 annual average in g/m3") + 
   ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue") +
-  annotate("text", x = min(comp2$NO2_Annual_Average_g_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
-
-ggsave("ARI_vs_SO2.jpeg")
+  annotate("text", x = min(comp2$NO2_Annual_Average_g_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)) ,size = 4)+
+  theme(
+    plot.title = element_text(size = 16),  # Title font size
+    axis.title.x = element_text(size = 14),  # X-axis label font size
+    axis.title.y = element_text(size = 14),  # Y-axis label font size
+    axis.text.x = element_text(size = 12),  # X-axis text (tick labels) font size
+    axis.text.y = element_text(size = 12),  # Y-axis text (tick labels) font size
+    text = element_text(size = 12)  # General text font size
+  )
 
 ggsave("ARI_vs_NO2.jpeg")
+
+
+correlation_coefficient <- cor(comp2$SO2_Annual_Average_g_m3, comp2$Prevalence_of_ARI_under_5_years)
+ggplot(comp2, aes(x = SO2_Annual_Average_g_m3, y = Prevalence_of_ARI_under_5_years )) +
+  geom_point() +
+  labs(title = paste("Scatterplot for ARI vs SO2")) + 
+  xlab("SO2 annual average in g/m3") + 
+  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  annotate("text", x = min(comp2$SO2_Annual_Average_g_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)) ,size = 4)+
+  theme(
+    plot.title = element_text(size = 16),  # Title font size
+    axis.title.x = element_text(size = 14),  # X-axis label font size
+    axis.title.y = element_text(size = 14),  # Y-axis label font size
+    axis.text.x = element_text(size = 12),  # X-axis text (tick labels) font size
+    axis.text.y = element_text(size = 12),  # Y-axis text (tick labels) font size
+    text = element_text(size = 12)  # General text font size
+  )
+ggsave("ARI_vs_SO2.jpeg")
+
+
 
 
 correlation_coefficient <- cor(comp2$PM10_Annual_Average_g_m3, comp2$Prevalence_of_ARI_under_5_years)
