@@ -48,8 +48,8 @@ populations[10] <-49577103
 
 state_populations <- data.frame(State, populations)
 unique(temp$State)
-states[19] = "Delhi"
-states[25] = "Manipur"
+state[19] = "Delhi"
+state[25] = "Manipur"
 
 Deaths_2011 <- merge(ARI_death , state_populations)
 Deaths_2011["Cases/population"] = Deaths_2011$Total.Cases/Deaths_2011$populations

@@ -4,7 +4,7 @@ library(shinythemes)
 library(shinyjs)
 ui <- fluidPage(
   theme = shinytheme("slate"),
-  titlePanel("Air Quality and Respiratory Illnesses"),
+  titlePanel("Respiratory Illnesses and Factors Affecting them"),
   sidebarLayout(
     sidebarPanel(
       selectInput("dataset", "Select a dataset:", c("city_wise_air_quality", "statewise_air_quality" , "Statewise_air_quality_and_ARI_factors" ,
@@ -23,8 +23,8 @@ ui <- fluidPage(
     mainPanel(
       tableOutput("data"),
       textOutput("info"),
-      textOutput("corr"),
       actionButton("plot_button","generate plot"),
+      textOutput("corr"),
       plotOutput("plot")
     )
   )
@@ -111,7 +111,7 @@ server <- function(input, output) {
   
   # Create scatterplot
   output$plot <- renderPlot({
-    if (!is.null(input$dataset) && input$plot_button > 0) {
+    if (!is.null(input$dataset) && input$plot_button > 0 ) {
       
       data <- datasets[[input$dataset]]
       if(input$bestfit){
@@ -155,7 +155,7 @@ server <- function(input, output) {
           ylab("Frequency")
       }
     }
-    
+   
   })
   
   
