@@ -25,12 +25,12 @@ air_qualf$State[5] = "Chhattisgarh"
 
 PM25 <- read.csv("./Data_Respiratory_illnesses/PM25.csv")
 
-air_qualf <- merge(air_qualf , PM25)P
+air_qualf <- merge(air_qualf , PM25)
 
 write.csv(statewise_pollution , "statewise_pollution.csv")
 #code for quality_vs_ARI
 Deaths_2011 <- read.csv("./Data_Respiratory_illnesses/Deaths_2011.csv")
-air
+
 ARI_and_factors <- read.csv("./Data_Respiratory_illnesses/State_wise_ARI_and_factors.csv")
 ARI_and_factors <- ARI_and_factors[,-1]
 
@@ -44,44 +44,62 @@ write.csv(comp , file = "quality_vs_deaths.csv")
 write.csv(comp2 , file = "quality_vs_ARI.csv")
 
 #Relevant plots
+correlation_coefficient <- cor(comp2$NO2_Annual_Average_g_m3, comp2$Prevalence_of_ARI_under_5_years)
 ggplot(comp2, aes(x = NO2_Annual_Average_g_m3, y = Prevalence_of_ARI_under_5_years )) +
   geom_point() +
   labs(title = paste("Scatterplot for ARI vs NO2")) + 
   xlab("NO2 annual average in g/m3") + 
-  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue")
+  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  annotate("text", x = min(comp2$NO2_Annual_Average_g_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
 
 ggsave("ARI_vs_SO2.jpeg")
 
 ggsave("ARI_vs_NO2.jpeg")
 
+
+correlation_coefficient <- cor(comp2$PM10_Annual_Average_g_m3, comp2$Prevalence_of_ARI_under_5_years)
 ggplot(comp2, aes(x = PM10_Annual_Average_g_m3, y = Prevalence_of_ARI_under_5_years )) +
   geom_point() +
   labs(title = paste("Scatterplot for ARI vs PM10")) + 
   xlab("PM10 annual average in g/m3") + 
-  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue")
+  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  annotate("text", x = min(comp2$PM10_Annual_Average_g_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
 ggsave("ARI_vs_PM10.jpeg")
 
+
+correlation_coefficient <- cor(comp2$PM2.5_ug_m3, comp2$Prevalence_of_ARI_under_5_years)
 ggplot(comp2, aes(x = PM2.5_ug_m3, y = Prevalence_of_ARI_under_5_years )) +
   geom_point() +
   labs(title = paste("Scatterplot for ARI vs PM2.5")) + 
   xlab("PM2.5 annual average in ug/m3") + 
-  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue")
+  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  annotate("text", x = min(comp2$PM2.5_ug_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
+
 ggsave("ARI_vs_PM2.5.jpeg")
 
 #tobacco
 
-ggplot(comp2, aes(x = comp2$Tobacco_use_men, y = Prevalence_of_ARI_under_5_years )) +
+correlation_coefficient <- cor(comp2$Tobacco_use_men, comp2$Prevalence_of_ARI_under_5_years)
+
+ggplot(comp2, aes(x = Tobacco_use_men, y = Prevalence_of_ARI_under_5_years )) +
   geom_point() +
   labs(title = paste("Scatterplot for ARI vs Tobacco use in men")) + 
   xlab("Percent tobacco use in men") + 
-  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "green")
+  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "green") +
+  annotate("text", x = min(comp2$Tobacco_use_men), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
+
 ggsave("ARI_vs_Tobacco_men.jpeg")
+
+
+correlation_coefficient <- cor(comp2$Tobacco_use_women, comp2$Prevalence_of_ARI_under_5_years)
 
 ggplot(comp2, aes(x = Tobacco_use_women, y = Prevalence_of_ARI_under_5_years )) +
   geom_point() +
   labs(title = paste("Scatterplot for ARI vs Tobacco use in women")) + 
   xlab("Percent tobacco use in women") + 
-  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "green")
+  ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "green") +
+  annotate("text", x = min(comp2$Tobacco_use_women), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
+
 ggsave("ARI_vs_Tobacco_women.jpeg")
 
 #state max death/case
