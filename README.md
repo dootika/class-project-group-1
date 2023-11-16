@@ -32,6 +32,6 @@ Data_Air_Quality contains Air quality related data in addition to the combined d
 Data_Respiratory_illnesses contains ARI related data.
 
 Shiny app code is contained in code folder.
-To run it , set working directory as "class-project-group-1"
+To run it , set working directory as "class-project-group-1".
 
 
