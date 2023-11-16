@@ -1,14 +1,14 @@
 library(shiny)
 library(ggplot2)
 library(shinythemes)
-library(shinyjs)
+
 ui <- fluidPage(
   theme = shinytheme("slate"),
   titlePanel("Respiratory Illnesses and Factors Affecting them"),
   sidebarLayout(
     sidebarPanel(
-      selectInput("dataset", "Select a dataset:", c("city_wise_air_quality", "statewise_air_quality" , "Statewise_air_quality_and_ARI_factors" ,
-                                                    "state_wise_ARI_and_factors","statewise_air_quality_and_cases_deaths","state_wise_cases_and_deaths")),
+      selectInput("dataset", "Select a dataset:", c("citywise air quality", "statewise air quality" , "Statewise air quality and ARI factors" ,
+                                                    "statewise air quality and ARI cases","statewise ARI factors","statewise ARI cases")),
       checkboxInput("desc" , "View Info" , FALSE),
       selectInput("x_var", "Select X variable:", ""),
       selectInput("y_var" , "Select Y variable:" , ""),
@@ -40,10 +40,10 @@ server <- function(input, output) {
   state_wise_ARI_and_factors <- read.csv("./Data_Respiratory_illnesses/State_wise_ARI_and_factors.csv")
   state_wise_cases_and_deaths <- read.csv("./Data_Respiratory_illnesses/Deaths_2011.csv")
   
-  datasets <- list("city_wise_air_quality" = city_wise_air_quality,  
-                   "statewise_air_quality" = statewise_air_quality , "Statewise_air_quality_and_ARI_factors" = Statewise_air_quality_and_ARI_factors ,
-                   "statewise_air_quality_and_cases_deaths" = statewise_air_quality_and_cases_deaths,
-                   "state_wise_ARI_and_factors" = state_wise_ARI_and_factors , "state_wise_cases_and_deaths" = state_wise_cases_and_deaths)
+  datasets <- list("citywise air quality" = city_wise_air_quality,  
+                   "statewise air quality" = statewise_air_quality , "Statewise air quality and ARI factors" = Statewise_air_quality_and_ARI_factors ,
+                   "statewise air quality and ARI cases" = statewise_air_quality_and_cases_deaths,
+                   "statewise ARI factors" = state_wise_ARI_and_factors , "statewise ARI cases" = state_wise_cases_and_deaths)
   
   
   # Show data summary
@@ -55,8 +55,12 @@ server <- function(input, output) {
   
   output$corr <- renderText({
     if(input$plot_type == "scatterplot"){
-      data <- datasets[[input$dataset]]
-      paste("correlation:" , cor(data[,input$x_var] , data[,input$y_var]))
+        data <- datasets[[input$dataset]]
+        x <- data[,input$x_var]
+        y <- data[,input$y_var]
+        if( (class(x) != "character") & (class(y) != "character")){
+         paste("correlation:" , cor( x,y ))
+        }
     }
     else{
       NULL
@@ -66,22 +70,22 @@ server <- function(input, output) {
   output$info <- renderText({
     if(input$desc){
       dataset <- input$dataset
-      if(dataset == "city_wise_air_quality"){
+      if(dataset == "citywise air quality"){
         "Dataset that contains data on SO2, NO2, PM10 and PM2.5 levels in various cities."
       }
-      else if(dataset == "statewise_air_quality"){
+      else if(dataset == "statewise air quality"){
         "Statewise averages of SO2, NO2, PM10 and PM2.5 levels"
       }
-      else if(dataset == "Statewise_air_quality_and_ARI_factors"){
-        "Combined dataset of statewise pollutant levels along with domestic factors that influence ARI along with ARI prevelance levels"
+      else if(dataset == "Statewise air quality and ARI factors"){
+        "Combined dataset of statewise pollutant levels along with domestic factors that influence ARI along with ARI prevelance levels in children aged less than 5 years"
       }
-      else if(dataset == "state_wise_ARI_and_factors"){
-        "Dataset of ARI prevelance levels in children along with various domestic factors that might influence this"
-      }
-      else if(dataset == "statewise_air_quality_and_cases_deaths"){
+      else if(dataset == "statewise air quality and ARI cases"){
         "Dataset of statewise pollutant levels along with number of cases and deaths, state populations, and various ratios"
       }
-      else if(dataset == "state_wise_cases_and_deaths"){
+      else if(dataset == "statewise ARI factors"){
+        "Dataset of prevelance of ARIs in children aged below 5 years along with various domestic factors that might affect this"
+      }
+      else if(dataset == "statewise ARI cases"){
         "Dataset of statewise number of ARI cases and deaths, state populations and relevant ratios"
       }
     }

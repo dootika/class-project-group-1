@@ -89,7 +89,15 @@ ggplot(comp2, aes(x = PM10_Annual_Average_g_m3, y = Prevalence_of_ARI_under_5_ye
   labs(title = paste("Scatterplot for ARI vs PM10")) + 
   xlab("PM10 annual average in g/m3") + 
   ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue") +
-  annotate("text", x = min(comp2$PM10_Annual_Average_g_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
+  annotate("text", x = min(comp2$PM10_Annual_Average_g_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)) , size = 4) +
+  theme(
+    plot.title = element_text(size = 16),  # Title font size
+    axis.title.x = element_text(size = 14),  # X-axis label font size
+    axis.title.y = element_text(size = 14),  # Y-axis label font size
+    axis.text.x = element_text(size = 12),  # X-axis text (tick labels) font size
+    axis.text.y = element_text(size = 12),  # Y-axis text (tick labels) font size
+    text = element_text(size = 12)  # General text font size
+  )
 ggsave("ARI_vs_PM10.jpeg")
 
 
@@ -99,7 +107,15 @@ ggplot(comp2, aes(x = PM2.5_ug_m3, y = Prevalence_of_ARI_under_5_years )) +
   labs(title = paste("Scatterplot for ARI vs PM2.5")) + 
   xlab("PM2.5 annual average in ug/m3") + 
   ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "blue") +
-  annotate("text", x = min(comp2$PM2.5_ug_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
+  annotate("text", x = min(comp2$PM2.5_ug_m3), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)), size = 4) +
+  theme(
+    plot.title = element_text(size = 16),  # Title font size
+    axis.title.x = element_text(size = 14),  # X-axis label font size
+    axis.title.y = element_text(size = 14),  # Y-axis label font size
+    axis.text.x = element_text(size = 12),  # X-axis text (tick labels) font size
+    axis.text.y = element_text(size = 12),  # Y-axis text (tick labels) font size
+    text = element_text(size = 12)  # General text font size
+  )
 
 ggsave("ARI_vs_PM2.5.jpeg")
 
@@ -112,7 +128,15 @@ ggplot(comp2, aes(x = Tobacco_use_men, y = Prevalence_of_ARI_under_5_years )) +
   labs(title = paste("Scatterplot for ARI vs Tobacco use in men")) + 
   xlab("Percent tobacco use in men") + 
   ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "green") +
-  annotate("text", x = min(comp2$Tobacco_use_men), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
+  annotate("text", x = min(comp2$Tobacco_use_men), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)) , size = 4) +
+  theme(
+    plot.title = element_text(size = 16),  # Title font size
+    axis.title.x = element_text(size = 14),  # X-axis label font size
+    axis.title.y = element_text(size = 14),  # Y-axis label font size
+    axis.text.x = element_text(size = 12),  # X-axis text (tick labels) font size
+    axis.text.y = element_text(size = 12),  # Y-axis text (tick labels) font size
+    text = element_text(size = 12)  # General text font size
+  )
 
 ggsave("ARI_vs_Tobacco_men.jpeg")
 
@@ -124,14 +148,22 @@ ggplot(comp2, aes(x = Tobacco_use_women, y = Prevalence_of_ARI_under_5_years )) 
   labs(title = paste("Scatterplot for ARI vs Tobacco use in women")) + 
   xlab("Percent tobacco use in women") + 
   ylab("Prevelance of ARI under 5 years") + geom_smooth(method = "lm", se = FALSE, color = "green") +
-  annotate("text", x = min(comp2$Tobacco_use_women), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)))
+  annotate("text", x = min(comp2$Tobacco_use_women), y = max(comp2$Prevalence_of_ARI_under_5_years), label = paste("Corr:", round(correlation_coefficient, 2)) , 4) +
+  theme(
+    plot.title = element_text(size = 16),  # Title font size
+    axis.title.x = element_text(size = 14),  # X-axis label font size
+    axis.title.y = element_text(size = 14),  # Y-axis label font size
+    axis.text.x = element_text(size = 12),  # X-axis text (tick labels) font size
+    axis.text.y = element_text(size = 12),  # Y-axis text (tick labels) font size
+    text = element_text(size = 12)  # General text font size
+  )
 
 ggsave("ARI_vs_Tobacco_women.jpeg")
 
 #state max death/case
 Deaths_2011[order(Deaths_2011$Total.Deaths.Cases , decreasing = TRUE),]
 
-ordered_deaths <- Deaths_2011[order(Deaths_2011$Total.Deaths.Cases , decreasing = TRUE),]
+ordered_deaths <- Deaths_2011[order(Deaths_2011$Total.Deaths.Cases , decreasing = FALSE),]
 ordered_deaths <- ordered_deaths[1:7,]
 
 # Create the barplot
