@@ -31,3 +31,7 @@ Plot.R contains code for combining tables to generate the combined datasets as w
 Data_Air_Quality contains Air quality related data in addition to the combined datasets.
 Data_Respiratory_illnesses contains ARI related data.
 
+Shiny app code is contained in code folder.
+To run it , set working directory as "class-project-group-1"
+
+
