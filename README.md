@@ -24,3 +24,10 @@ prevalence in children?
 
 4. How do household variables like clean cooking fuel usage and tobacco
 use impact respiratory health?
+
+GUIDE :
+Code folder contains all codes on scraping , plot generation.
+Plot.R contains code for combining tables to generate the combined datasets as well.
+Data_Air_Quality contains Air quality related data in addition to the combined datasets.
+Data_Respiratory_illnesses contains ARI related data.
+
