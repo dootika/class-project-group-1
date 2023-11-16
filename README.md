@@ -14,11 +14,13 @@ Current status:
 
 Questions:
 
-1) What areas of the country have the lowest air quality, and which areas of the country are worst affected by Respiratory Illnesses.
-        a)State wise distribution of air quality
-        b)Top 5 most polluted cities
-3) Is there any correlation between Air quality and respiratory illnesses ?
-5) What features of air quality contribute more to increased risk of respiratory illnesses.
-6) Relation between different features
-7) Income level/GDP and AQI relation
-8) To what extent does awareness of danger signs help mitigate the risk of death by respiratory illnesses.
+
+ 1. How does air pollution (NO2, SO2, PM2.5, PM10) correlate with ARI
+prevalence in children?
+
+2. Which states do the best and worst in mitigating ARIs ?
+
+3. Which states are the most polluted?
+
+4. How do household variables like clean cooking fuel usage and tobacco
+use impact respiratory health?
